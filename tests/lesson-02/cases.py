@@ -39,6 +39,9 @@ def cases(load):
     yield "2.3 as published", book, None, ["❌ is_email should be a boolean mask", "❌ mini_email_orders isn't a DataFrame yet"]
     yield "2.3 and instead of &", replace(solved, "is_email =", "is_email & (", "is_email and ("), None, ["⚠️ A cell stopped with ValueError", "❌ mini_email_orders isn't a DataFrame yet. If you got"]
     yield "2.3 | instead of &", replace(solved, "is_email =", "is_email & (", "is_email | ("), None, ["❌ mini_email_orders has rows that aren't email rows"]
+    reused = replace(solved, "july_email_orders = july[", '(july["session_medium"] == "email")', "is_email")
+    reused = replace(reused, "july_email_orders = july[", "july_email_orders = july[", 'is_email = july["session_medium"] == "email"\njuly_email_orders = july[')
+    yield "2.3 is_email reused for July", reused, None, ["❌ is_email has 1984 values, but mini has 6 rows", "✅ july_email_orders has July's 63"]
     yield "2.3 no date condition", replace(solved, "july_email_orders = july[", '(july["date"] <= "2024-07-31")\n    & ', ""), None, ["❌ july_email_orders has 67 rows", "❌ email_orders_revenue includes August 1 and 2"]
     yield "2.3 no transactions condition", replace(solved, "july_email_orders = july[", '\n    & (july["transactions"] > 0)', ""), None, ["❌ july_email_orders has every July email row"]
 
