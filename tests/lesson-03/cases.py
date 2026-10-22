@@ -23,6 +23,8 @@ def cases(load):
     yield "3.1 dropna instead of fillna", replace(solved, 'september["session_campaign"] =', 'september["session_campaign"] = september["session_campaign"].fillna("(not set)")', "september = september.dropna()"), None, ["❌ september has 1,573 rows"]
     yield "3.1 fillna not assigned", replace(solved, 'september["session_campaign"] =', 'september["session_campaign"] = september["session_campaign"].fillna', 'september["session_campaign"].fillna'), None, ["❌ september still has 207 missing campaigns"]
     yield "3.1 value_counts drops NaN", replace(solved, "campaigns = september_raw", "nan_rows = campaigns.isna().sum()", 'nan_rows = campaigns.value_counts().get("nan", 0)'), None, ["❌ nan_rows is 0"]
+    rows = replace(solved, "september = pd.read_csv", "lost_campaigns = lost.sum()\nlost_sessions = september.loc[lost, \"sessions\"].sum()", 'lost_campaigns = september[lost]\nlost_sessions = lost_campaigns["sessions"].sum()')
+    yield "3.1 lost_campaigns as rows", rows, None, ["❌ lost_campaigns is a DataFrame, not a number", "✅ 820 sessions have a lost campaign"]
     yield "3.1 check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
 
     # 3.2 Fix March 2025's dates and autumn's revenue
@@ -55,6 +57,7 @@ def cases(load):
     yield "3.4 keep=False", replace(solved, "duplicates =", "deduped = h2.drop_duplicates()", "deduped = h2[~h2.duplicated(keep=False)]"), None, ["❌ deduped has 10,687 rows"]
     yield "3.4 refunds removed", replace(solved, "future_rows =", 'clean = in_range[in_range["session_medium"] != "test"]', 'clean = in_range[(in_range["session_medium"] != "test") & (in_range["revenue"] >= 0)]'), None, ["❌ clean has 9,852 rows"]
     yield "3.4 future rows kept", replace(solved, "future_rows =", 'clean = in_range[in_range["session_medium"] != "test"]', 'clean = deduped[deduped["session_medium"] != "test"]'), None, ["❌ clean has 11,286 rows"]
+    yield "3.4 future_rows as rows", replace(solved, "future_rows =", 'future_rows = (deduped["date"] > END).sum()', 'future_rows = deduped[deduped["date"] > END]'), None, ["❌ future_rows is a DataFrame, not a number", "✅ 19 rows are the store's own test traffic"]
     yield "3.4 test rows counted in h2", replace(solved, "future_rows =", 'test_rows = (in_range["session_medium"]', 'test_rows = (h2["session_medium"]'), None, ["❌ test_rows is 20"]
 
     # 3.5 Audit a colleague's cleaned data
