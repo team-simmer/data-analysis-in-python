@@ -12,6 +12,19 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 2 | Rank August's best rows | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-02/2.4-rank-august.ipynb) |
 | 2 | Stack 2024's twelve exports | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-02/2.5-stack-2024.ipynb) |
 | 2 | Answer a manager's questions about June 2024 | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-02/2-june-questions.ipynb) |
+| 3 | Count September's lost campaigns | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-03/3.1-lost-campaigns.ipynb) |
+| 3 | Fix March 2025's dates and autumn's revenue | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-03/3.2-dates-and-revenue.ipynb) |
+| 3 | Standardize November's sources | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-03/3.3-source-spellings.ipynb) |
+| 3 | Clean the second half of 2025 | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-03/3.4-remove-rows.ipynb) |
+| 3 | Audit a colleague's cleaned data | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-03/3.5-validate.ipynb) |
+| 3 | Clean two years of exports end to end | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-03/3-clean-two-years.ipynb) |
+| 4 | Calculate 2025's CTR and CPC | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.1-google-ads-metrics.ipynb) |
+| 4 | Group Q3 2025's sessions by channel | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.2-channel-groups.ipynb) |
+| 4 | Total Q4 2024 by channel | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.3-channel-totals.ipynb) |
+| 4 | Report H1 2025's conversion rate | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.4-conversion-rate.ipynb) |
+| 4 | Reshape H1 2024 into a monthly table | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.5-monthly-table.ipynb) |
+| 4 | Deliver Q4 2025's channel report in Excel | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.6-excel-report.ipynb) |
+| 4 | Build and deliver the monthly channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4-monthly-channel-report.ipynb) |
 
 ## Tests
 
