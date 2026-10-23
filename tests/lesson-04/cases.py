@@ -23,6 +23,8 @@ def cases(load):
     yield "4.1 mean of row rates", replace(solved, "total_spend =", 'ads_2025["clicks"].sum() / ads_2025["impressions"].sum()', 'ads_2025["ctr"].mean()'), None, ["❌ overall_ctr is 2.95%, the average of the rows' CTRs"]
     yield "4.1 ctr as a percentage", replace(solved, "total_spend =", 'ads_2025["clicks"].sum() / ads_2025["impressions"].sum()', 'ads_2025["clicks"].sum() / ads_2025["impressions"].sum() * 100'), None, ["❌ overall_ctr is 1.21: a percentage"]
     yield "4.1 cpc mean", replace(solved, "total_spend =", 'ads_2025["spend"].sum() / ads_2025["clicks"].sum()', 'ads_2025["cpc"].mean()'), None, ["❌ overall_cpc is $0.50, the average of the rows' CPCs"]
+    yield "4.1 total_spend as text", replace(solved, "total_spend =", 'round(ads_2025["spend"].sum(), 2)', 'f"${ads_2025[\'spend\'].sum():,.2f}"'), None, ["❌ total_spend is the text '$198,630.66'"]
+    yield "4.1 overall_cpc as text", replace(solved, "total_spend =", 'ads_2025["spend"].sum() / ads_2025["clicks"].sum()', 'f"${ads_2025[\'spend\'].sum() / ads_2025[\'clicks\'].sum():.2f}"'), None, ["❌ overall_cpc should be numbers, not text"]
     yield "4.1 top_cpc lowest first", replace(solved, "top_cpc =", 'nlargest(5, "cpc")', 'nsmallest(5, "cpc")'), None, ["❌ top_cpc's first CPC is 0.0806"]
     yield "4.1 check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
 
