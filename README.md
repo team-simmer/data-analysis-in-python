@@ -25,6 +25,11 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 4 | Reshape H1 2024 into a monthly table | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.5-monthly-table.ipynb) |
 | 4 | Deliver Q4 2025's channel report in Excel | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4.6-excel-report.ipynb) |
 | 4 | Build and deliver the monthly channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-04/4-monthly-channel-report.ipynb) |
+| 5 | Combine 2025's ad spend | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5.1-spend-table.ipynb) |
+| 5 | Calculate Q4 2024's Google Ads ROAS | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5.2-google-ads-roas.ipynb) |
+| 5 | Fix Q3 2025's campaign keys | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5.3-campaign-keys.ipynb) |
+| 5 | Report Q4 2025's Meta ROAS | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5.4-meta-roas.ipynb) |
+| 5 | Calculate ROAS by platform and campaign | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5-roas-by-platform.ipynb) |
 
 ## Tests
 
