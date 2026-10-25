@@ -30,6 +30,10 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 5 | Fix Q3 2025's campaign keys | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5.3-campaign-keys.ipynb) |
 | 5 | Report Q4 2025's Meta ROAS | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5.4-meta-roas.ipynb) |
 | 5 | Calculate ROAS by platform and campaign | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-05/5-roas-by-platform.ipynb) |
+| 6 | Measure the summer sale's lift | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6.1-summer-sale.ipynb) |
+| 6 | Report Q2 2025 by week and month | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6.2-weekly-and-monthly.ipynb) |
+| 6 | Compare Q3 2025 with last year | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6.3-period-comparisons.ipynb) |
+| 6 | Compare Black Friday week year over year | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6-black-friday-yoy.ipynb) |
 
 ## Tests
 
