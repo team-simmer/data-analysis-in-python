@@ -25,7 +25,7 @@ def cases(load):
     yield "6.1 windows share a day", replace(solved, "sale =", "SALE_START - pd.Timedelta(days=1)]", "SALE_START]"), None, ["❌ The before table ends on June 20"]
     yield "6.1 lift without minus 1", replace(solved, "session_lift =", 'before["sessions"].mean() - 1', 'before["sessions"].mean()'), None, ["❌ session_lift is 1.43"]
     yield "6.1 mean of daily rates", replace(solved, "session_lift =", 'sale_rate = sale["transactions"].sum() / sale["sessions"].sum()', 'sale_rate = (sale["transactions"] / sale["sessions"]).mean()'), None, ["❌ sale_rate or before_rate is the mean of the days' rates"]
-    yield "6.1 Sundays only", replace(solved, "session_lift =", "dayofweek >= 5", "dayofweek > 5"), None, ["❌ The weekend counts are 3 and 2"]
+    yield "6.1 Sundays only", replace(solved, "session_lift =", "day_of_week >= 5", "day_of_week > 5"), None, ["❌ The weekend counts are 3 and 2"]
     yield "6.1 check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
 
     # 6.2 Report Q2 2025 by week and month
