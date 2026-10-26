@@ -54,6 +54,8 @@ def cases(load):
     yield "6.3 as published", book, None, ["❌ The weekly table should have the columns revenue_wow and revenue_yoy", "❌ The monthly table should be the provided cell's 15 months", "❌ q3_yoy should be a number"]
     yield "6.3 YoY as the week before", replace(solved, 'weekly["revenue_wow"]', "pct_change(52)", "pct_change(1)"), None, ["❌ The weekly table's revenue_yoy is the same as revenue_wow"]
     yield "6.3 YoY 53 weeks back", replace(solved, 'weekly["revenue_wow"]', "pct_change(52)", "pct_change(53)"), None, ["❌ The weekly table's revenue_yoy compares with the week 53 weeks earlier"]
+    yield "6.3 WoW as a difference", replace(solved, 'weekly["revenue_wow"]', 'weekly["revenue"].pct_change()', 'weekly["revenue"].diff()'), None, ["❌ The weekly table's revenue_wow is"]
+    yield "6.3 MoM as a difference", replace(solved, 'monthly["revenue_mom"]', 'monthly["revenue"].pct_change()', 'monthly["revenue"].diff()'), None, ["❌ The monthly table's revenue_mom is", "in September: that's the difference in dollars"]
     yield "6.3 best week by revenue", replace(solved, 'weekly["revenue_wow"]', 'q3_weeks["revenue_yoy"].idxmax()', 'q3_weeks["revenue"].idxmax()'), None, ["❌ best_yoy_week is the week with the most revenue"]
     yield "6.3 best week as a table", replace(solved, 'weekly["revenue_wow"]', 'q3_weeks["revenue_yoy"].idxmax()', 'q3_weeks.nlargest(1, "revenue_yoy")'), None, ["❌ best_yoy_week is a DataFrame, not the week's label"]
     yield "6.3 last year's week as a table", replace(solved, 'weekly["revenue_wow"]', "weekly.loc[best_yoy_week - pd.Timedelta(weeks=52)]", "weekly.loc[[best_yoy_week - pd.Timedelta(weeks=52)]]"), None, ["❌ last_year_week is a table with one row"]
@@ -70,6 +72,7 @@ def cases(load):
     calendar = replace(calendar, "bf_week =", "assert list(bf_week.index.day_name()) == list(last_year_week.index.day_name())\n", "")
     yield "final a calendar year back", calendar, None, ["❌ The last_year_week table starts on November 24, 2024"]
     yield "final partial weeks kept", replace(solved, "days_per_week =", "weekly = weekly[days_per_week == 7].copy()\n", ""), None, ["❌ The weekly table has 66 weeks"]
+    yield "final YoY as a difference", replace(solved, "days_per_week =", 'weekly["revenue"].pct_change(52)', 'weekly["revenue"].diff(52)'), None, ["❌ The weekly table's revenue_yoy is", "that's the difference in dollars, diff(52)"]
     yield "final YoY 53 weeks back", replace(solved, "days_per_week =", "pct_change(52)", "pct_change(53)"), None, ["❌ The weekly table's revenue_yoy compares with the week 53 weeks earlier"]
     sunday = replace(solved, "bf_week =", "pd.Timedelta(days=4)", "pd.Timedelta(days=5)")
     sunday = replace(sunday, "bf_week =", "pd.Timedelta(days=2)", "pd.Timedelta(days=1)")
