@@ -34,6 +34,9 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 6 | Report Q2 2025 by week and month | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6.2-weekly-and-monthly.ipynb) |
 | 6 | Compare Q3 2025 with last year | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6.3-period-comparisons.ipynb) |
 | 6 | Compare Black Friday week year over year | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-06/6-black-friday-yoy.ipynb) |
+| 7 | Flatten Black Friday week's events | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-07/7.1-flatten-events.ipynb) |
+| 7 | Unnest the campaigns and viewed items | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-07/7.2-campaigns-and-items.ipynb) |
+| 7 | Rebuild the purchase report from raw events | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-07/7-purchase-report.ipynb) |
 
 ## Tests
 
