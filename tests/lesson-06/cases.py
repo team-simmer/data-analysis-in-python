@@ -43,6 +43,10 @@ def cases(load):
     yield "6.2 centered", replace(solved, "revenue_7d =", "rolling(7)", "rolling(7, center=True)"), None, ["❌ revenue_7d is NaN on June 30"]
     yield "6.2 rolling sum", replace(solved, "revenue_7d =", "rolling(7).mean()", "rolling(7).sum()"), None, ["❌ revenue_7d is the 7-day total"]
     yield "6.2 best week's revenue", replace(solved, "revenue_7d =", "idxmax()", "max()"), None, ["❌ best_week is the best week's revenue"]
+    yield "6.2 best week as a table", replace(solved, "revenue_7d =", 'weekly["revenue"].idxmax()', 'weekly.nlargest(1, "revenue")'), None, ["❌ best_week is a DataFrame, not the week's label"]
+    yield "6.2 best week's index", replace(solved, "revenue_7d =", 'weekly["revenue"].idxmax()', 'weekly.nlargest(1, "revenue").index'), None, ["❌ best_week is a DatetimeIndex, not the week's label"]
+    yield "6.2 best week as text", replace(solved, "revenue_7d =", 'weekly["revenue"].idxmax()', 'f"{weekly[\'revenue\'].idxmax():%Y-%m-%d}"'), None, ["❌ best_week is text, '2025-06-29'"]
+    yield "6.2 best week by nlargest", replace(solved, "revenue_7d =", 'weekly["revenue"].idxmax()', 'weekly.nlargest(1, "revenue").index[0]'), None, ["✅ Revenue's 7-day average peaks at the end of June", DONE]
 
     # 6.3 Compare Q3 2025 with last year
     book, solved = load("6.3-period-comparisons.ipynb"), load("6.3-period-comparisons.ipynb", solved=True)
@@ -51,6 +55,7 @@ def cases(load):
     yield "6.3 YoY as the week before", replace(solved, 'weekly["revenue_wow"]', "pct_change(52)", "pct_change(1)"), None, ["❌ The weekly table's revenue_yoy is the same as revenue_wow"]
     yield "6.3 YoY 53 weeks back", replace(solved, 'weekly["revenue_wow"]', "pct_change(52)", "pct_change(53)"), None, ["❌ The weekly table's revenue_yoy compares with the week 53 weeks earlier"]
     yield "6.3 best week by revenue", replace(solved, 'weekly["revenue_wow"]', 'q3_weeks["revenue_yoy"].idxmax()', 'q3_weeks["revenue"].idxmax()'), None, ["❌ best_yoy_week is the week with the most revenue"]
+    yield "6.3 best week as a table", replace(solved, 'weekly["revenue_wow"]', 'q3_weeks["revenue_yoy"].idxmax()', 'q3_weeks.nlargest(1, "revenue_yoy")'), None, ["❌ best_yoy_week is a DataFrame, not the week's label"]
     yield "6.3 a calendar year back", replace(solved, 'weekly["revenue_wow"]', "pd.Timedelta(weeks=52)", "pd.DateOffset(years=1)"), None, ["⚠️ A cell stopped with", "❌ last_year_week should be the weekly table's row 52 weeks before best_yoy_week"]
     yield "6.3 rate change relative", replace(solved, 'monthly["revenue_mom"]', 'monthly["conversion_rate"].diff()', 'monthly["conversion_rate"].pct_change()'), None, ["❌ The monthly table's rate_change is the relative change"]
     yield "6.3 quarter as mean of weeks", replace(solved, "q3_yoy =", 'daily.loc["2025-07":"2025-09", "revenue"].sum() / daily.loc["2024-07":"2024-09", "revenue"].sum() - 1', 'q3_weeks["revenue_yoy"].mean()'), None, ["❌ q3_yoy is 0.3883"]
