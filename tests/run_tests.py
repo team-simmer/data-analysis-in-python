@@ -14,7 +14,8 @@ The workbooks read their data from the course's data store, as they do in Colab.
 
 Run from the repo's root, with the pandas version to test:
 
-    uv run --python 3.13 --with pandas==3.0.2 --with pyarrow --with openpyxl==3.1.5 --with ipykernel --with jupyter_client tests/run_tests.py [lesson-02 ...]
+    uv run --python 3.13 --with pandas==3.0.2 --with pyarrow --with openpyxl==3.1.5 \
+        --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with ipykernel --with jupyter_client tests/run_tests.py [lesson-02 ...]
 """
 
 import importlib.util

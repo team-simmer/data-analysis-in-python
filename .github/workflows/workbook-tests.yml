@@ -6,6 +6,8 @@
 # - latest: to hear about the next pandas before Colab ships it
 # The course code must behave the same on all of them (see the outline's notes on the pandas version).
 # openpyxl is pinned to Colab's version (3.1.5): lesson 4. writes and reads Excel files with it.
+# matplotlib, seaborn and Plotly are pinned to Colab's versions (3.10.0, 0.13.2, 5.24.1): lesson 8. checks charts
+# through their objects, so a new version that draws differently would change what the checks read.
 # The source is in courses/data-analysis-in-python/tools/ in the course repo.
 name: Workbook tests
 
@@ -35,7 +37,8 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.pandas }}" = "latest" ]; then spec="pandas"; else spec="pandas==${{ matrix.pandas }}"; fi
-          uv run --python 3.13 --with "$spec" --with pyarrow --with openpyxl==3.1.5 --with ipykernel --with jupyter_client \
+          uv run --python 3.13 --with "$spec" --with pyarrow --with openpyxl==3.1.5 \
+            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with ipykernel --with jupyter_client \
             tests/run_tests.py 2>&1 | tee output.txt
           {
             echo "## pandas ${{ matrix.pandas }}"; echo

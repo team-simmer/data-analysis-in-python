@@ -37,6 +37,13 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 7 | Flatten Black Friday week's events | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-07/7.1-flatten-events.ipynb) |
 | 7 | Unnest the campaigns and viewed items | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-07/7.2-campaigns-and-items.ipynb) |
 | 7 | Rebuild the purchase report from raw events | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-07/7-purchase-report.ipynb) |
+| 8 | Chart Q2 2024's sessions and revenue | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.1-line-and-bar-charts.ipynb) |
+| 8 | Find 2025's unusual traffic days | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.2-unusual-days.ipynb) |
+| 8 | Test 2025's spend and revenue | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.3-spend-and-revenue.ipynb) |
+| 8 | Build Q1 2025's channel figure | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.4-stakeholder-figure.ipynb) |
+| 8 | Fix the first-half deck's charts | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.5-honest-charts.ipynb) |
+| 8 | Chart H2 2024's channels by week | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.6-interactive-chart.ipynb) |
+| 8 | Explore the orders and back up three findings | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8-orders-findings.ipynb) |
 
 ## Tests
 
