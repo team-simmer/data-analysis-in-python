@@ -44,6 +44,12 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 8 | Fix the first-half deck's charts | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.5-honest-charts.ipynb) |
 | 8 | Chart H2 2024's channels by week | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8.6-interactive-chart.ipynb) |
 | 8 | Explore the orders and back up three findings | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-08/8-orders-findings.ipynb) |
+| 9 | Calculate the checkout test's lift | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.1-lift-per-variant.ipynb) |
+| 9 | Check the checkout test's split | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.2-srm-check.ipynb) |
+| 9 | Find the users B lost | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.3-mismatch-cause.ipynb) |
+| 9 | Test the checkout lift | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.4-significance.ipynb) |
+| 9 | Size the checkout test | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.5-sample-size.ipynb) |
+| 9 | Write the readout for desktop users | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9-desktop-readout.ipynb) |
 
 ## Tests
 
