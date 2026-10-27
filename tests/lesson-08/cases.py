@@ -33,7 +33,7 @@ def cases(load):
 
     # 8.2 Find 2025's unusual traffic days
     book, solved = load("8.2-unusual-days.ipynb"), load("8.2-unusual-days.ipynb", solved=True)
-    yield "8.2 solution", solved, None, [CLEAN, "✅ A typical day in 2025 had 3,614 sessions", "✅ 13 days above the fence of 5,924 sessions, from November 21 to December 9, led by November 28 with 14,786", "✅ The histogram counts the 365 days in 30 bins, with the fence at 5,924 sessions", DONE]
+    yield "8.2 solution", solved, None, [CLEAN, "✅ A typical day in 2025 had 3,614 sessions", "✅ 13 days above the fence of 5,924 sessions, from November 21 to December 9, led by November 28 with 14,786", "✅ 3.6% of 2025's days were above the fence: 13 of 365", "✅ The histogram counts the 365 days in 30 bins, with the fence at 5,924 sessions", DONE]
     yield "8.2 as published", book, None, ["❌ typical_day should be a number", "❌ q1, q3, lower_fence and upper_fence should be numbers", "❌ hist_ax should be the Axes"]
     yield "8.2 mean, not median", replace(solved, "typical_day =", '.median()', '.mean()'), None, ["❌ typical_day is 3,922.51"]
     yield "8.2 quartiles of rows", replace(solved, "q1, q3 =", 'q1, q3 = daily["sessions"]', 'q1, q3 = sessions["sessions"]'), None, ["❌ The fences come from the sessions table's rows"]
@@ -41,6 +41,8 @@ def cases(load):
     yield "8.2 three standard deviations", replace(solved, "q1, q3 =", "upper_fence = q3 + 1.5 * iqr", 'upper_fence = daily["sessions"].mean() + 3 * daily["sessions"].std()'), None, ["❌ upper_fence is 7,678.14: that's the mean plus three standard deviations"]
     yield "8.2 three IQRs", replace(solved, "q1, q3 =", "upper_fence = q3 + 1.5 * iqr", "upper_fence = q3 + 3 * iqr"), None, ["❌ upper_fence is 7,544"]
     yield "8.2 revenue outliers", replace(solved, "q1, q3 =", 'outlier_days = daily[daily["sessions"] > upper_fence]', 'rq1, rq3 = daily["revenue"].quantile([0.25, 0.75])\noutlier_days = daily[daily["revenue"] > rq3 + 1.5 * (rq3 - rq1)]'), None, ["❌ The outlier_days table has 38 days"]
+    yield "8.2 outlier count, not share", replace(solved, "q1, q3 =", 'outlier_share = (daily["sessions"] > upper_fence).mean()', 'outlier_share = (daily["sessions"] > upper_fence).sum()'), None, ["❌ outlier_share is 13: that's the number of days"]
+    yield "8.2 outlier share in percent", replace(solved, "q1, q3 =", 'outlier_share = (daily["sessions"] > upper_fence).mean()', 'outlier_share = (daily["sessions"] > upper_fence).mean() * 100'), None, ["❌ outlier_share is in percent"]
     yield "8.2 histogram of rows", replace(solved, "fig, hist_ax =", 'hist_ax.hist(daily["sessions"], bins=30)', 'hist_ax.hist(sessions["sessions"], bins=30)'), None, ["❌ hist_ax's histogram counts 21,880 values"]
     yield "8.2 no fence line", replace(solved, "fig, hist_ax =", 'hist_ax.axvline(upper_fence, color="red", linestyle="--", label=f"Outlier fence: {upper_fence:,.0f}")\n', ""), None, ["❌ hist_ax has no vertical line at upper_fence"]
     yield "8.2 seaborn histogram", replace(solved, "fig, hist_ax =", 'hist_ax.hist(daily["sessions"], bins=30)', 'sns.histplot(x=daily["sessions"], bins=30, ax=hist_ax)'), None, ["✅ The histogram counts the 365 days in 30 bins", DONE]
@@ -108,9 +110,10 @@ def cases(load):
     yield "final as published", book, None, ["❌ orders should be the orders file", "❌ item_rows should be", "❌ correlations should be a 4 × 4 table", "❌ findings_fig should be the Figure", "❌ orders_findings.png hasn't been saved"]
     yield "final cancelled kept", replace(solved, "valid_orders =", 'valid_orders = orders[orders["status"] != "Cancelled"]', "valid_orders = orders"), None, ["❌ The valid_orders table has all 65,106 orders", "❌ The correlations table includes the cancelled orders", "❌ value_ax's histogram counts 65,106 orders"]
     yield "final fence on total", replace(solved, "valid_orders =", 'q1, q3 = valid_orders["subtotal"]', 'q1, q3 = valid_orders["total"]'), None, ["❌ upper_fence is 219.62"]
-    yield "final cancelled lines", replace(solved, "item_rows =", 'item_rows = item_rows[item_rows["status"] != "Cancelled"]\n', ""), None, ["❌ The item_rows table has 92,723 rows"]
+    yield "final cancelled lines", replace(solved, "item_rows =", 'item_rows = item_rows[item_rows["status"] != "Cancelled"].copy()\n', ""), None, ["❌ The item_rows table has 92,723 rows"]
     department = replace(solved, "item_rows =", 'products[["product_id", "category"]]', 'products[["product_id", "category", "department"]]')
-    yield "final by department", replace(department, "item_rows =", 'groupby(item_rows["category"])', 'groupby(item_rows["department"])'), None, ["❌ return_rates is by department"]
+    yield "final by department", replace(department, "item_rows =", 'groupby("category")', 'groupby("department")'), None, ["❌ return_rates is by department"]
+    yield "final one-line rates", replace(solved, "item_rows =", 'item_rows["returned"] = item_rows["status"] == "Returned"\nreturn_rates = item_rows.groupby("category")["returned"].mean()', 'return_rates = (item_rows["status"] == "Returned").groupby(item_rows["category"]).mean()'), None, ["✅ Return rates by category run from 12.0% (Outerwear) to 13.6% (Sweaters)", DONE]
     yield "final rates in percent", replace(solved, "item_rows =", ".mean()", ".mean() * 100"), None, ["❌ return_rates is in percent"]
     yield "final formula pair", replace(solved, "correlations =", 'strongest_pair = ("num_items", "subtotal")\nstrongest_r = correlations.loc["num_items", "subtotal"]', 'strongest_pair = ("subtotal", "total")\nstrongest_r = correlations.loc["subtotal", "total"]'), None, ["❌ strongest_pair is subtotal and total, 0.9992"]
     yield "final negative pair", replace(solved, "correlations =", 'strongest_pair = ("num_items", "subtotal")', 'strongest_pair = ("subtotal", "shipping")'), None, ["❌ strongest_pair is subtotal and shipping, -0.7417"]
