@@ -26,6 +26,8 @@ def cases(load):
     yield "9.1 lift reversed", replace(solved, "conversion_lift =", 'results.loc["B", "conversion_rate"] / results.loc["A", "conversion_rate"]', 'results.loc["A", "conversion_rate"] / results.loc["B", "conversion_rate"]'), None, ["❌ conversion_lift is -0.0980"]
     yield "9.1 difference, not lift", replace(solved, "conversion_lift =", 'results.loc["B", "conversion_rate"] / results.loc["A", "conversion_rate"] - 1', '(results.loc["B", "conversion_rate"] - results.loc["A", "conversion_rate"]) * 100'), None, ["❌ conversion_lift is 0.4969: that's the difference in rates, in percentage points"]
     yield "9.1 lift in percent", replace(solved, "conversion_lift =", 'conversion_lift = results.loc["B", "conversion_rate"] / results.loc["A", "conversion_rate"] - 1', 'conversion_lift = (results.loc["B", "conversion_rate"] / results.loc["A", "conversion_rate"] - 1) * 100'), None, ["❌ conversion_lift is in percent"]
+    yield "9.1 lift of conversions", replace(solved, "conversion_lift =", 'results.loc["B", "conversion_rate"] / results.loc["A", "conversion_rate"]', 'results.loc["B", "conversions"] / results.loc["A", "conversions"]'), None, ["❌ conversion_lift is 0.0194: that's the lift in the number of conversions"]
+    yield "9.1 lift of total revenue", replace(solved, "conversion_lift =", 'results.loc["B", "revenue_per_user"] / results.loc["A", "revenue_per_user"]', 'results.loc["B", "revenue"] / results.loc["A", "revenue"]'), None, ["❌ revenue_lift is 0.0101: that's the lift in total revenue"]
     yield "9.1 check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
 
     # 9.2 Check the checkout test's split
