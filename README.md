@@ -50,6 +50,9 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 9 | Test the checkout lift | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.4-significance.ipynb) |
 | 9 | Size the checkout test | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9.5-sample-size.ipynb) |
 | 9 | Write the readout for desktop users | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-09/9-desktop-readout.ipynb) |
+| 10 | Model the Paid Search return | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-10/10.1-revenue-from-spend.ipynb) |
+| 10 | Forecast Q2 transactions | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-10/10.2-weekly-forecast.ipynb) |
+| 10 | Forecast Q4 2025 and score it | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-10/10-q4-forecast.ipynb) |
 
 ## Tests
 
