@@ -53,6 +53,11 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 10 | Model the Paid Search return | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-10/10.1-revenue-from-spend.ipynb) |
 | 10 | Forecast Q2 transactions | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-10/10.2-weekly-forecast.ipynb) |
 | 10 | Forecast Q4 2025 and score it | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-10/10-q4-forecast.ipynb) |
+| 11 | Find where each channel leaks | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-11/11.1-session-funnel.ipynb) |
+| 11 | Track quarterly cohorts | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-11/11.2-cohort-retention.ipynb) |
+| 11 | Score every customer | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-11/11.3-rfm-segments.ipynb) |
+| 11 | Find the customer types | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-11/11.4-customer-clusters.ipynb) |
+| 11 | Compare Email and Paid Social | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-11/11-email-vs-paid-social.ipynb) |
 
 ## Tests
 

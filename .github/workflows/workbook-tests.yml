@@ -11,6 +11,8 @@
 # nbformat is preinstalled in Colab, and Plotly's fig.show() needs it in a kernel.
 # SciPy and statsmodels are pinned to Colab's versions (1.16.3, 0.15.0): lesson 9.'s checks compare p-values,
 # intervals and sample sizes to six decimals, so a version that changes a default would change what they read.
+# scikit-learn is pinned to Colab's version (1.6.1): lesson 11.'s checks compare k-means inertias and silhouette scores,
+# which a new version's defaults could change.
 # The source is in courses/data-analysis-in-python/tools/ in the course repo.
 name: Workbook tests
 
@@ -41,7 +43,7 @@ jobs:
         run: |
           if [ "${{ matrix.pandas }}" = "latest" ]; then spec="pandas"; else spec="pandas==${{ matrix.pandas }}"; fi
           uv run --python 3.13 --with "$spec" --with pyarrow --with openpyxl==3.1.5 \
-            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with ipykernel --with jupyter_client \
+            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with ipykernel --with jupyter_client \
             tests/run_tests.py 2>&1 | tee output.txt
           {
             echo "## pandas ${{ matrix.pandas }}"; echo
