@@ -11,7 +11,7 @@
 # nbformat is preinstalled in Colab, and Plotly's fig.show() needs it in a kernel.
 # SciPy and statsmodels are pinned to Colab's versions (1.16.3, 0.15.0): lesson 9.'s checks compare p-values,
 # intervals and sample sizes to six decimals, so a version that changes a default would change what they read.
-# scikit-learn is pinned to Colab's version (1.6.1): lesson 11.'s checks compare k-means inertias and silhouette scores,
+# scikit-learn is pinned to Colab's version (1.6.1): lesson 11.'s checks compare k-means cluster sizes,
 # which a new version's defaults could change.
 # The source is in courses/data-analysis-in-python/tools/ in the course repo.
 name: Workbook tests

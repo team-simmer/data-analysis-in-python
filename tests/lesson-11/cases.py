@@ -62,11 +62,11 @@ def cases(load):
 
     # 11.4 Find the customer types
     book, solved = load("11.4-customer-clusters.ipynb"), load("11.4-customer-clusters.ipynb", solved=True)
-    yield "11.4 solution", solved, None, [CLEAN, "✅ 41,776 customers: 7.9% of their orders used a coupon", "✅ Five columns on one scale", "✅ The silhouette score peaks at 4 clusters, 0.522", "✅ Four types: 2,673 customers who buy with a coupon", "loyal_high_value", DONE]
-    yield "11.4 as published", book, None, ["❌ features should be a DataFrame", "❌ scaled should be a 41,776 × 5 array", "❌ inertias and silhouettes should be dictionaries", "❌ The features table should have a cluster column"]
-    yield "11.4 no logs", replace(solved, "logged =", 'scaled = StandardScaler().fit_transform(logged)', 'scaled = StandardScaler().fit_transform(features)'), None, ["❌ scaled has no logs"]
-    yield "11.4 not scaled", replace(solved, "logged =", 'scaled = StandardScaler().fit_transform(logged)', 'scaled = features.to_numpy()'), None, ["❌ scaled is the features table as it is"]
-    yield "11.4 lowest inertia", replace(solved, "inertias =", "best_k = max(silhouettes, key=silhouettes.get)", "best_k = min(inertias, key=inertias.get)"), None, ["❌ best_k is 8, the lowest inertia"]
+    yield "11.4 solution", solved, None, [CLEAN, "✅ 41,776 customers: 7.9% of their orders used a coupon", "✅ Five columns on one scale", "✅ With 3 clusters, coupon use stays", "✅ Four types: 3,339 customers who buy with a coupon", "loyal_high_value", DONE]
+    yield "11.4 as published", book, None, ["❌ features should be a DataFrame", "❌ scaled should be a 41,776 × 5 array", "❌ profiles should be a dictionary", "❌ The features table should have a cluster column"]
+    yield "11.4 not scaled", replace(solved, "scaled =", "scaled = StandardScaler().fit_transform(features)", "scaled = features.to_numpy()"), None, ["❌ scaled is the features table as it is"]
+    yield "11.4 with logs", replace(solved, "scaled =", "scaled = StandardScaler().fit_transform(features)", 'scaled = StandardScaler().fit_transform(features.assign(orders=np.log(features["orders"])))'), None, ["❌ scaled should be the five columns as they are"]
+    yield "11.4 three clusters", replace(solved, "profiles =", "best_k = 4", "best_k = 3"), None, ["❌ best_k should be the smallest number of clusters"]
     yield "11.4 check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
 
     # 11 final: Compare Email and Paid Social
