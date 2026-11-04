@@ -57,6 +57,7 @@ def cases(load):
     if r_score >= 4 and f_score >= 4:
         return "Champions"
 """), None, ["❌ rfm_segment(5, 5) should return 'Champions'. It returns 'Loyal'", "❌ segment_counts should be"]
+    yield "11.3 function called on the columns", replace(solved, "def rfm_segment", 'rfm["segment"] = rfm.apply(row_segment, axis=1)', 'rfm["segment"] = rfm_segment(rfm["r_score"], rfm["f_score"])'), None, ["⚠️ A cell stopped with ValueError", "❌ The rfm table should have a segment column. If you got"]
     yield "11.3 check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
 
     # 11.4 Find the customer types
