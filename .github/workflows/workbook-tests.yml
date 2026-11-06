@@ -13,6 +13,8 @@
 # intervals and sample sizes to six decimals, so a version that changes a default would change what they read.
 # scikit-learn is pinned to Colab's version (1.6.1): lesson 11.'s checks compare k-means cluster sizes,
 # which a new version's defaults could change.
+# requests and google-analytics-data: lesson 12. calls the Simmer API and its GA4 practice endpoint, with the
+# course key from the SIMMER_API_KEY repository secret (Colab has requests; students install google-analytics-data).
 # The source is in courses/data-analysis-in-python/tools/ in the course repo.
 name: Workbook tests
 
@@ -40,10 +42,12 @@ jobs:
           enable-cache: false
       - name: Run the workbook tests
         shell: bash
+        env:
+          SIMMER_API_KEY: ${{ secrets.SIMMER_API_KEY }}
         run: |
           if [ "${{ matrix.pandas }}" = "latest" ]; then spec="pandas"; else spec="pandas==${{ matrix.pandas }}"; fi
           uv run --python 3.13 --with "$spec" --with pyarrow --with openpyxl==3.1.5 \
-            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with ipykernel --with jupyter_client \
+            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with requests --with google-analytics-data --with ipykernel --with jupyter_client \
             tests/run_tests.py 2>&1 | tee output.txt
           {
             echo "## pandas ${{ matrix.pandas }}"; echo
