@@ -79,5 +79,5 @@ def cases(load):
     yield "11 final no cohort", replace(solved, "h1_customers =", 'h1_customers = customers[(customers["created_at"] >= COHORT_START) & (customers["created_at"] < COHORT_END)]', "h1_customers = customers"), None, ["❌ The h1_customers table has all 53,272 customers"]
     yield "11 final left join", replace(solved, "h1_customers =", 'how="inner"', 'how="left"'), None, ["❌ The h1_segments table has all 7,545 cohort customers"]
     yield "11 final first order counted", replace(solved, 'h1_segments["repeat"]', '> 1', '>= 1'), None, ["❌ repeat_rates is 1 for every channel"]
-    yield "11 final counts", replace(solved, "counts =", "segment_mix = counts.div(counts.sum(axis=1), axis=0)", "segment_mix = counts"), None, ["❌ segment_mix has the number of customers in each segment"]
+    yield "11 final counts", replace(solved, "counts =", "segment_mix = counts.div(channel_sizes, axis=0).loc[CHANNELS]", "segment_mix = counts.loc[CHANNELS]"), None, ["❌ segment_mix has the number of customers in each segment"]
     yield "11 final check run twice", solved, twice(solved), ["⚠️ This cell has run before"]
