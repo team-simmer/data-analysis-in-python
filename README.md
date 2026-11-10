@@ -63,12 +63,13 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 12 | Pull all of 2025 | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-12/12.3-pull-all-of-2025.ipynb) |
 | 12 | Report Q4 by channel group | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-12/12.4-ga4-channel-report.ipynb) |
 | 12 | Share five weeks in a sheet | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-12/12.5-weekly-sheet.ipynb) |
+| 12 | Report your own property | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-12/12.6-own-ga4-property.ipynb) |
 | 12 | Pull a year of campaign data | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-12/12-campaign-year.ipynb) |
 
 ## Tests
 
 `tests/` runs every workbook's solution, and the common mistakes, in a real IPython kernel, and checks what the "Check your work" cell says about each. The Workbook tests workflow runs them on pandas 2.2.3 (Colab's default), 3.0.2 and the latest pandas, on every change and every Monday, because the course's code has to work the same on all of them.
 
-Lesson 12.'s tests call the live Simmer API with the course key, which the workflow reads from the repository secret `SIMMER_API_KEY`. They replace Google's login and Google Sheets with an in-memory stand-in.
+Lesson 12.'s tests call the live Simmer API with the course key, which the workflow reads from the repository secret `SIMMER_API_KEY`. They replace Google's login and Google Sheets with an in-memory stand-in, and point topic 12.6.'s workbook, which needs the student's own GA4 property, at the practice endpoint.
 
 The workbooks and tests are built from the course's source files. Please don't send pull requests here.

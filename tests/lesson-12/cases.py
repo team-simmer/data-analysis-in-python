@@ -9,6 +9,10 @@ environment variable instead of Colab Secrets (and the API's address from SIMMER
 set, to test against a local copy). Google's login and gspread become an in-memory fake that, like
 the real client, serializes what it's given to JSON. Topics 12.1., 12.2. and 12.4. also get a
 wrapper that retries 429 and 503 answers, because a random 503 isn't what those topics test.
+Topic 12.6. needs the student's own GA4 property, so its tests point the workbook at the practice
+endpoint instead, with Q4 2025's dates.
+Topic 12.6. needs the student's own GA4 property, so its tests point the workbook at the practice
+endpoint instead, with Q4 2025's dates.
 """
 
 CLEAN = "✅ Every cell in this session ran once"
@@ -107,6 +111,27 @@ def offline_google(cells, patient=False):
     return [PATIENT_REQUESTS] + out if patient else out
 
 
+OWN_KEY = 'key = json.loads(userdata.get("GA4_SERVICE_ACCOUNT"))\nclient = BetaAnalyticsDataClient.from_service_account_info(key)'
+PRACTICE_CLIENT = ('client = BetaAnalyticsDataClient(transport="rest", client_options={'
+                   '"api_endpoint": os.environ.get("SIMMER_API_URL", "https://api.teamsimmer.com"), '
+                   '"api_key": os.environ["SIMMER_API_KEY"]})')
+
+
+def practice_property(cells):
+    """Return topic 12.6.'s cells pointed at the practice endpoint: the tests have no GA4 property of their own."""
+    out = []
+    for source in cells:
+        if source.startswith("import json") and 'PROPERTY_ID = ""' in source:
+            source = "import os\n" + source.replace("from google.colab import userdata\n", "")
+            source = source.replace('PROPERTY_ID = ""', 'PROPERTY_ID = "123456789"')
+            source = source.replace('"28daysAgo", "yesterday"', '"2025-10-01", "2025-12-31"')
+        source = source.replace(OWN_KEY, PRACTICE_CLIENT)
+        if source.startswith("%pip install"):
+            source = "pass  # installed by the test environment"
+        out.append(source)
+    return [PATIENT_REQUESTS] + out
+
+
 def twice(cells):
     """Run every cell, then the check again: the check should warn that it has run before."""
     return list(range(1, len(cells) + 1)) + [len(cells)]
@@ -150,6 +175,16 @@ def cases(load):
     yield "12.5 as published", book, None, ["❌ spreadsheet should be a gspread spreadsheet", "❌ read_back should be a DataFrame"]
     yield "12.5 dates as dates", replace(solved, "weekly[", 'weekly["week_start"] = weekly["week_start"].dt.strftime("%Y-%m-%d")\n', ""), None, ["⚠️ A cell stopped with TypeError: Object of type Timestamp is not JSON serializable", "❌ The sheet's header row"]
     yield "12.5 no header", replace(solved, "weekly[", "[weekly.columns.tolist()] + weekly.values.tolist()", "weekly.values.tolist()"), None, ["❌ The sheet's header row should be"]
+
+    # 12.6 Report your own property (on the practice endpoint, Q4 2025 by channel group)
+    # "No access" stops at the report cell and runs the check, as Colab's Run all stops at an error.
+    book = practice_property(load("12.6-own-ga4-property.ipynb"))
+    solved = practice_property(load("12.6-own-ga4-property.ipynb", solved=True))
+    yield "12.6 solution", solved, None, [CLEAN, "✅ A report of 9 channel groups from property 123456789", "✅ 9 channel groups and 486,702 sessions", DONE]
+    yield "12.6 as published", book, None, ["❌ client should be the GA4 client", "❌ response should be the answer", "❌ channels should be a DataFrame"]
+    yield "12.6 no property ID", replace(solved, "import os", 'PROPERTY_ID = "123456789"', 'PROPERTY_ID = ""'), None, ["❌ PROPERTY_ID should be your property's ID"]
+    yield "12.6 values as text", replace(solved, "names =", 'channels[["sessions", "totalUsers"]] = channels[["sessions", "totalUsers"]].astype(int)\n', ""), None, ["❌ The metrics are still text"]
+    yield "12.6 no access", replace(solved, "request =", "response = client.run_report(request)", 'from google.api_core.exceptions import PermissionDenied\nraise PermissionDenied("User does not have sufficient permissions for this property.")'), [1, 2, 3, 4, 5, 7], ["⚠️ GA4 answered 403", "❌ response should be the answer"]
 
     # 12 Pull a year of campaign data
     book, solved = both("12-campaign-year.ipynb")
