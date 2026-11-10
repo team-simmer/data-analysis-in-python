@@ -15,6 +15,10 @@
 # which a new version's defaults could change.
 # requests and google-analytics-data: lesson 12. calls the Simmer API and its GA4 practice endpoint, with the
 # course key from the SIMMER_API_KEY repository secret (Colab has requests; students install google-analytics-data).
+# google-cloud-bigquery (pinned to Colab's 3.45.2), its storage and dtypes packages, and duckdb (Colab's 1.3.2):
+# lesson 13. runs real BigQuery queries in the simmer-python project as the workbook-tests service account
+# (BigQuery Job User only). The workflow signs in through Workload Identity Federation, with no key: GitHub's
+# token for this repository is exchanged for the service account's short-lived credentials.
 # The source is in courses/data-analysis-in-python/tools/ in the course repo.
 name: Workbook tests
 
@@ -25,6 +29,10 @@ on:
     # Every Monday, to notice a new pandas, or a change in the data store, before students do
     - cron: "0 6 * * 1"
   workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write  # for Workload Identity Federation (lesson 13.'s BigQuery queries)
 
 jobs:
   workbooks:
@@ -40,14 +48,19 @@ jobs:
         with:
           # No lockfile to key a cache on, and uv resolves pandas fresh for each version anyway
           enable-cache: false
+      - uses: google-github-actions/auth@v3.0.0
+        with:
+          workload_identity_provider: projects/459036830923/locations/global/workloadIdentityPools/github/providers/github-oidc
+          service_account: workbook-tests@simmer-python.iam.gserviceaccount.com
       - name: Run the workbook tests
         shell: bash
         env:
           SIMMER_API_KEY: ${{ secrets.SIMMER_API_KEY }}
+          BQ_PROJECT: simmer-python
         run: |
           if [ "${{ matrix.pandas }}" = "latest" ]; then spec="pandas"; else spec="pandas==${{ matrix.pandas }}"; fi
           uv run --python 3.13 --with "$spec" --with pyarrow --with openpyxl==3.1.5 \
-            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with requests --with google-analytics-data --with ipykernel --with jupyter_client \
+            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with requests --with google-analytics-data --with google-cloud-bigquery==3.45.2 --with google-cloud-bigquery-storage --with db-dtypes --with duckdb==1.3.2 --with ipykernel --with jupyter_client \
             tests/run_tests.py 2>&1 | tee output.txt
           {
             echo "## pandas ${{ matrix.pandas }}"; echo
