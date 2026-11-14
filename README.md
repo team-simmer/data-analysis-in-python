@@ -69,6 +69,10 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 13 | Report Black Friday week on a budget | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-13/13.2-black-friday-budget.ipynb) |
 | 13 | Report 2025 with DuckDB | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-13/13.3-devices-2025-duckdb.ipynb) |
 | 13 | Answer one question from two sources | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-13/13-two-sources.ipynb) |
+| 14 | Get Q2 2025's channel report from Gemini | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14.1-channels-with-gemini.ipynb) |
+| 14 | Check an AI-written channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14.2-check-ai-report.ipynb) |
+| 14 | Validate Q2 2024's channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14.3-validate-channel-report.ipynb) |
+| 14 | Review an AI-written ROAS analysis | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14-review-ai-roas.ipynb) |
 
 ## Tests
 
