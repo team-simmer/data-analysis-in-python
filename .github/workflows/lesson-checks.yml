@@ -1,0 +1,45 @@
+# Published as .github/workflows/lesson-checks.yml in team-simmer/data-analysis-in-python.
+# Installs uv the way Python Foundations topic 9.1. does, on Windows and macOS, and runs lesson 15.'s exercises
+# and checks end to end with tests/lesson-15/test_local.py: git, nbstripout, the module, the notebooks and check.py.
+# Each run's summary shows what git printed, for the recording notes.
+# The source is in lesson 15.'s checks/ in the course repo.
+name: Lesson checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lesson-15/**"
+      - "tests/lesson-15/**"
+      - ".github/workflows/lesson-checks.yml"
+  schedule:
+    # Every Monday, to notice when a new uv, git, pandas, JupyterLab or nbstripout changes what students see
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  lesson-15:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install uv (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+          "$env:USERPROFILE\.local\bin" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: Install uv (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Run lesson 15.'s exercises and checks
+        run: uv run --python 3.13 tests/lesson-15/test_local.py "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/lesson-15"

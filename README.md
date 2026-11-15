@@ -74,10 +74,14 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 14 | Validate Q2 2024's channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14.3-validate-channel-report.ipynb) |
 | 14 | Review an AI-written ROAS analysis | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14-review-ai-roas.ipynb) |
 
+Lesson 15. runs on your own computer, in the `campaign-tools` project from Python Foundations, so its notebooks aren't opened in Colab. The topic pages show the commands: `lesson-15/get_files.py` downloads a notebook into the project, and `lesson-15/check.py` checks your work, both with `uv run`.
+
 ## Tests
 
 `tests/` runs every workbook's solution, and the common mistakes, in a real IPython kernel, and checks what the "Check your work" cell says about each. The Workbook tests workflow runs them on pandas 2.2.3 (Colab's default), 3.0.2 and the latest pandas, on every change and every Monday, because the course's code has to work the same on all of them.
 
 Lesson 12.'s tests call the live Simmer API with the course key, which the workflow reads from the repository secret `SIMMER_API_KEY`. They replace Google's login and Google Sheets with an in-memory stand-in, and point topic 12.6.'s workbook, which needs the student's own GA4 property, at the practice endpoint. Lesson 13.'s tests run real BigQuery queries in Simmer's project, as a service account the workflow signs in as without a key.
+
+Lesson 15.'s exercises run on your computer, so the Lesson checks workflow does them on Windows and macOS instead, with `tests/lesson-15/test_local.py`: it sets up a new `campaign-tools` project with uv, git and nbstripout, does every exercise with its solution and the common mistakes, and runs `check.py` on each.
 
 The workbooks and tests are built from the course's source files. Please don't send pull requests here.
