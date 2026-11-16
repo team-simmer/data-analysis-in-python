@@ -5,6 +5,8 @@
 # - 3.0.2: the code editor's pandas, and where Colab is heading
 # - latest: to hear about the next pandas before Colab ships it
 # The course code must behave the same on all of them (see the outline's notes on the pandas version).
+# The pandas 2.2.3 job pins NumPy to Colab's version (2.4.6), so it tests the combination Colab students run:
+# a NumPy newer than Colab's can make pandas 2.2.3 print warnings that students wouldn't see (NumPy 2.5 does).
 # openpyxl is pinned to Colab's version (3.1.5): lesson 4. writes and reads Excel files with it.
 # matplotlib, seaborn and Plotly are pinned to Colab's versions (3.10.0, 0.13.2, 5.24.1): lesson 8. checks charts
 # through their objects, so a new version that draws differently would change what the checks read.
@@ -15,7 +17,7 @@
 # which a new version's defaults could change.
 # requests and google-analytics-data: lesson 12. calls the Simmer API and its GA4 practice endpoint, with the
 # course key from the SIMMER_API_KEY repository secret (Colab has requests; students install google-analytics-data).
-# google-cloud-bigquery (pinned to Colab's 3.45.2), db-dtypes and duckdb (Colab's 1.3.2):
+# google-cloud-bigquery (pinned to Colab's 3.47.0), db-dtypes and duckdb (Colab's 1.3.2):
 # lesson 13. runs real BigQuery queries in the simmer-python project as the workbook-tests service account
 # (BigQuery Job User only). The workflow signs in through Workload Identity Federation, with no key: GitHub's
 # token for this repository is exchanged for the service account's short-lived credentials.
@@ -62,8 +64,10 @@ jobs:
           BQ_PROJECT: simmer-python
         run: |
           if [ "${{ matrix.pandas }}" = "latest" ]; then spec="pandas"; else spec="pandas==${{ matrix.pandas }}"; fi
-          uv run --python 3.13 --with "$spec" --with pyarrow --with openpyxl==3.1.5 \
-            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with requests --with google-analytics-data --with google-cloud-bigquery==3.45.2 --with db-dtypes --with duckdb==1.3.2 --with ipykernel --with jupyter_client \
+          # Colab's pandas runs with Colab's NumPy; the other pandas versions get whatever NumPy uv picks
+          if [ "${{ matrix.pandas }}" = "2.2.3" ]; then numpy="numpy==2.4.6"; else numpy="numpy"; fi
+          uv run --python 3.13 --with "$spec" --with "$numpy" --with pyarrow --with openpyxl==3.1.5 \
+            --with matplotlib==3.10.0 --with seaborn==0.13.2 --with plotly==5.24.1 --with nbformat --with scipy==1.16.3 --with statsmodels==0.15.0 --with scikit-learn==1.6.1 --with requests --with google-analytics-data --with google-cloud-bigquery==3.47.0 --with db-dtypes --with duckdb==1.3.2 --with ipykernel --with jupyter_client \
             tests/run_tests.py 2>&1 | tee output.txt
           {
             echo "## pandas ${{ matrix.pandas }}"; echo
