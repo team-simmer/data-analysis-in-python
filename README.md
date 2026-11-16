@@ -73,6 +73,9 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 | 14 | Check an AI-written channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14.2-check-ai-report.ipynb) |
 | 14 | Validate Q2 2024's channel report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14.3-validate-channel-report.ipynb) |
 | 14 | Review an AI-written ROAS analysis | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-14/14-review-ai-roas.ipynb) |
+| 16 | Source the budget data | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-16/16.1-source-the-data.ipynb) |
+| 16 | Model every channel's next dollar | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-16/16.2-marginal-returns.ipynb) |
+| 16 | Deliver the budget report | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-16/16.3-budget-report.ipynb) |
 
 Lesson 15. runs on your own computer, in the `campaign-tools` project from Python Foundations, so its notebooks aren't opened in Colab. The topic pages show the commands: `lesson-15/get_files.py` downloads a notebook into the project, and `lesson-15/check.py` checks your work, both with `uv run`.
 
