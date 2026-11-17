@@ -6,6 +6,8 @@ Open a workbook from its link in the course. In Colab, choose **File → Save a 
 
 | Lesson | Workbook | Open |
 |--------|----------|------|
+| 1 | Check your setup | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-01/1.2-setup-check.ipynb) |
+| 1 | Total February's referral sessions | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-01/1.4-referral-report.ipynb) |
 | 2 | Load April 2024's sessions with the right types | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-02/2.1-load-april.ipynb) |
 | 2 | Profile May 2024's sessions | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-02/2.2-profile-may.ipynb) |
 | 2 | Find July's email orders | [Open in Colab](https://colab.research.google.com/github/team-simmer/data-analysis-in-python/blob/main/lesson-02/2.3-email-orders.ipynb) |
