@@ -10,7 +10,12 @@ tests/lesson-NN/cases.py with a cases(load) function that yields
 - order: the 1-based cell numbers to run, or None for all of them, top to bottom
 - expected: lines the check's output must contain (✅, ❌ or ⚠️ messages), or None to just show the output
 
-The workbooks read their data from the course's data store, as they do in Colab.
+The workbooks read the course's data store, as they do in Colab, but from a local copy: every test case
+starts a new kernel, and downloading the data store's files again for each one cost real egress (about
+140 GB in November 2026, mostly lessons 11. and 13.'s 236 MB events.parquet). The copy is in $DATA_CACHE
+(the workflow keeps it between runs with actions/cache), or in the system's temporary folder. Each run
+lists the data store and downloads only the files whose generation has changed (every upload gets a new
+one; not every object has an MD5), so a change in the data store still reaches the tests. The monthly course check tests the live data store itself.
 
 Run from the repo's root, with the pandas version to test:
 
@@ -20,8 +25,10 @@ Run from the repo's root, with the pandas version to test:
 
 import importlib.util
 import json
+import os
 import sys
 import tempfile
+import urllib.request
 from pathlib import Path
 
 from jupyter_client.manager import start_new_kernel
@@ -29,6 +36,46 @@ from jupyter_client.manager import start_new_kernel
 TESTS = Path(__file__).resolve().parent
 REPO = TESTS.parent
 WORK = Path(tempfile.mkdtemp())
+DATA_URL = "https://storage.googleapis.com/simmer-python-course-data/simmer-store/v1/"
+BUCKET, PREFIX = "simmer-python-course-data", "simmer-store/v1/"
+DATA_CACHE = Path(os.environ.get("DATA_CACHE") or Path(tempfile.gettempdir()) / "simmer-data-store")
+
+
+def sync_data_store():
+    """Copy the data store to DATA_CACHE, downloading only the files that are missing or changed."""
+    listing, token = [], ""
+    while True:
+        url = f"https://storage.googleapis.com/storage/v1/b/{BUCKET}/o?prefix={PREFIX}&fields=items(name,generation,size),nextPageToken"
+        with urllib.request.urlopen(url + (f"&pageToken={token}" if token else "")) as response:
+            page = json.load(response)
+        listing += page.get("items", [])
+        token = page.get("nextPageToken")
+        if not token:
+            break
+    manifest_path = DATA_CACHE / "generations.json"
+    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+    downloaded = 0
+    for item in listing:
+        if item["name"].endswith("/"):
+            continue
+        local = DATA_CACHE / item["name"][len(PREFIX):]
+        if local.exists() and manifest.get(item["name"]) == item["generation"]:
+            continue
+        local.parent.mkdir(parents=True, exist_ok=True)
+        # Download beside the file and rename, so a run that stops halfway never leaves half a file
+        part = local.with_name(f"{local.name}.{os.getpid()}.part")
+        urllib.request.urlretrieve(DATA_URL + item["name"][len(PREFIX):], part)
+        os.replace(part, local)
+        manifest[item["name"]] = item["generation"]
+        downloaded += int(item["size"])
+    manifest_path.write_text(json.dumps(manifest, indent=1))
+    print(f"Data store: {len(listing)} files in {DATA_CACHE}, {downloaded / 1e6:,.1f} MB downloaded")
+
+
+def local_data(cells):
+    """The cells with the data store's URL pointing at the local copy, as a file:// URL that
+    pd.read_csv(), pd.read_parquet() and urllib.request.urlretrieve() all read."""
+    return [source.replace(DATA_URL, DATA_CACHE.resolve().as_uri() + "/") for source in cells]
 
 
 def code_cells(notebook):
@@ -45,6 +92,7 @@ def loader(lesson):
 def run(cells, order=None):
     """Run the cells in order (1-based numbers) in a new kernel, and return everything they showed."""
     kernel, client = start_new_kernel(kernel_name="python3", cwd=str(WORK))
+    cells = local_data(cells)
     shown = ""
     try:
         for number in order or range(1, len(cells) + 1):
@@ -91,6 +139,7 @@ def main():
     print(f"Python {sys.version.split()[0]}, pandas {pandas.__version__} (kernel: pandas {kernel_pandas})\n")
     if kernel_pandas != pandas.__version__:
         sys.exit("The kernel doesn't run this environment's pandas, so the tests wouldn't test it.")
+    sync_data_store()
     failed = 0
     for lesson in lessons:
         print(f"## {lesson}")

@@ -24,6 +24,8 @@
 # google-cloud-bigquery-storage is left out on purpose: with it, to_dataframe() downloads through the Storage Read
 # API, which needs bigquery.readsessions.create, and the service account has only BigQuery Job User. Without it,
 # the client downloads over the REST API and warns that the storage module isn't there. The results are the same.
+# The data store is copied to data-store/ once and kept between runs with actions/cache, keyed on the data store's
+# listing (names and generations), so the tests don't download it again for every test case (see tests/run_tests.py).
 # The source is in courses/data-analysis-in-python/tools/ in the course repo.
 name: Workbook tests
 
@@ -57,9 +59,17 @@ jobs:
         with:
           workload_identity_provider: projects/459036830923/locations/global/workloadIdentityPools/github/providers/github-oidc
           service_account: workbook-tests@simmer-python.iam.gserviceaccount.com
+      - name: List the data store
+        run: curl -sf "https://storage.googleapis.com/storage/v1/b/simmer-python-course-data/o?prefix=simmer-store/v1/&fields=items(name,generation)" > data-store-listing.json
+      - uses: actions/cache@v6
+        with:
+          path: data-store
+          key: data-store-${{ hashFiles('data-store-listing.json') }}
+          restore-keys: data-store-
       - name: Run the workbook tests
         shell: bash
         env:
+          DATA_CACHE: data-store
           SIMMER_API_KEY: ${{ secrets.SIMMER_API_KEY }}
           BQ_PROJECT: simmer-python
         run: |
